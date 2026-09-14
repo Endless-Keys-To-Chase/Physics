@@ -1,0 +1,85 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+T1 = np.array([5,10,15,20,25])
+K1 = np.array([np.pi,np.pi,np.pi,np.pi,np.pi])
+K2 = np.array([np.pi*3,np.pi*3,np.pi*3,np.pi*3,np.pi*3])
+T2a = np.array([25,35,45,55,65])
+T2b = np.array([28.8,33.8,43.8,55.6,61.8])
+T2c = np.array([28.2,36.7,46,54,64])
+T2_a = np.array([105,110.5,136,149,164])
+T2_b = np.array([95,100,114,125,135])
+T2_c = np.array([87,106,124,136,148])
+plt.scatter(K1,np.log(T2a/T1),color = 'red')
+plt.scatter(K1,np.log(T2b/T1),color = 'blue')
+plt.scatter(K1,np.log(T2c/T1),color = 'magenta')
+plt.scatter(K2,np.log(T2_a/T1),color = 'red')
+plt.scatter(K2,np.log(T2_b/T1),color = 'blue')
+plt.scatter(K2,np.log(T2_c/T1),color = 'magenta')
+TH = np.concatenate([K1,K1,K1,K2,K2,K2])
+P2 = np.concatenate([T2a,T2b,T2c,T2_a,T2_b,T2_c])
+P1 = np.concatenate([T1,T1,T1,T1,T1,T1])
+slope , intercept= np.polyfit(TH,np.log(P2/P1),1)
+trendline = slope*TH + intercept
+plt.plot(TH,trendline, color ='green')
+#Z = np.array([np.mean(np.log(T2a/T1)),np.mean(np.log(T2b/T1)),np.mean(np.log(T2c/T1)),np.mean(np.log(T2_a/T1)),np.mean(np.log(T2_b/T1)),np.mean(np.log(T2_c/T1))])
+#Y = np.array([np.pi,np.pi,np.pi,np.pi*3,np.pi*3,np.pi*3])
+#plt.scatter(Z,Y,color = 'red')
+#slope , intercept= np.polyfit(Y,Z,1)
+#trendline = slope*TH + intercept,plt.plot(TH,trendline, color ='blue')
+plt.title("log(T2/T1) vs θ Scatter Plot with best fit Trendline")
+plt.xlabel("θ (π = 3.14)")
+plt.ylabel("log(T2/T1)")
+plt.show()
+
+#calculating friction vs theta
+
+eta = 1/TH*np.log(P2/P1)
+print(eta)
+plt.scatter(TH,eta)
+plt.title("Friction coefficient")
+plt.xlabel("θ (π = 3.14)")
+plt.ylabel("friction coefficient")
+plt.show()
+
+#Calculating friction vs Weight
+eta = 1/TH*np.log(P2/P1)
+print(eta)
+plt.scatter(P1,eta)
+plt.title("Friction coefficient")
+plt.xlabel("Weight(M1)")
+plt.ylabel("friction coefficient")
+plt.show()
+
+#Calculating standard Error and furtheron Error Propagation
+import numpy as np
+A1 = np.array([25,28.8,28.2])
+A2 = np.array([35,33.8,36.7])
+A3 = np.array([45,43.8,46])
+A4 = np.array([55,55.6,54])
+A5 = np.array([65,61.8,64])
+
+A6 = np.array([105,95,87])
+A7 = np.array([110.5,100,106])
+A8 = np.array([136,114,124])
+A9 = np.array([149,125,136])
+A10 = np.array([164,135,148])
+
+Std = np.array([np.std(A1),np.std(A2),np.std(A3),np.std(A4),np.std(A5),np.std(A6),np.std(A7),np.std(A8),np.std(A9),np.std(A10)])
+Std_err = Std/np.sqrt(3)
+print(Std)
+print(Std_err)
+
+del_u = (Std_err[:5]/np.array([np.mean(A1),np.mean(A2),np.mean(A3),np.mean(A4),np.mean(A5)]))*(1/np.pi)
+el_u = (Std_err[-5:]/np.array([np.mean(A6),np.mean(A7),np.mean(A8),np.mean(A9),np.mean(A10)]))*(1/(3*np.pi))
+print(del_u)
+print(el_u)
+#print(Std_err[:5])
+AP = np.concatenate([del_u,el_u])
+print(np.mean(AP))
+
+
+As = np.array([np.mean(A1),np.mean(A2),np.mean(A3),np.mean(A4),np.mean(A5)])
+As2 = np.array([np.mean(A6),np.mean(A7),np.mean(A8),np.mean(A9),np.mean(A10)])
+print(As)
+print(As2)
