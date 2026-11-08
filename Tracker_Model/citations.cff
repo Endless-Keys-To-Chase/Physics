@@ -1,0 +1,12 @@
+@misc{ bob_pendulum_detection_dataset,
+  title = { bob_pendulum_detection Dataset },
+  type = { Open Source Dataset },
+  author = { Abhisheks Workspace },
+  howpublished = { \url{ https://universe.roboflow.com/abhisheks-workspace-skddw/bob_pendulum_detection } },
+  url = { https://universe.roboflow.com/abhisheks-workspace-skddw/bob_pendulum_detection },
+  journal = { Roboflow Universe },
+  publisher = { Roboflow },
+  year = { 2026 },
+  month = { nov },
+  note = { visited on 2026-11-08 },
+}
